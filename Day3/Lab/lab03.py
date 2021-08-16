@@ -11,18 +11,34 @@
 
 ## make all characters capitalized
 def shout(txt):
-
+    try:
+        txt.upper()
+    except:
+        raise TypeError(str.upper("This ain't a string"))
+    return txt.upper()
 
 ## reverse all characters in string
 def reverse(txt):
+    try:
+        txt[::-1]
+        return txt[::-1]
+    except:
+        raise TypeError(str.upper("This ain't a string"))
 
 
 ## reverse word order in string
 def reversewords(txt):
+    words = txt.split()
+    words.reverse()
+    return flipped
 
 
 ## reverses letters in each word
 def reversewordletters(txt):
+    words = txt.split(" ")
+    for word in words:
+        reverse(word)
+    
 
 
 
@@ -35,6 +51,14 @@ def reversewordletters(txt):
  
 string_list = ["hi", "hello there", 5, "hope this works", 100, "will it?"]
 
+new_list = []
+for string in string_list:
+    try:
+        new_list.append(reverse(string))
+    except:
+        if TypeError:
+            new_list.append("not a string")
+    
 
 		
 			
