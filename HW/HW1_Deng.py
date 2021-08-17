@@ -128,10 +128,10 @@ portfolio.buyStock(2.5, s)
 mf1 = MutualFund("BRT")
 mf2 = MutualFund("GHT")
 portfolio.buyMutualFund(10.3, mf1)
-portfolio.buyMutualFund(100, mf2)
+portfolio.buyMutualFund(100.3, mf2)
 portfolio.buyMutualFund(50.2, mf1)
 portfolio.buyMutualFund(25.3, mf1)
-portfolio.sellMutualFund(25, mf1)
+portfolio.sellMutualFund(100.3, mf2)
 portfolio.sellMutualFund(25, mf2)
 
 portfolio.cash
