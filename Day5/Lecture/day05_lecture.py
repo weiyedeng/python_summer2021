@@ -97,7 +97,6 @@ re.findall(r"[a-d]", alltext)
 re.findall(r"[^a-d]", alltext) 
 # all char and digits (alphanumeric)
 re.findall(r"[a-zA-Z0-9]", alltext) 
-# \w alphanumeric, one word char 
 re.findall(r"\w", alltext) # same as re.findall(r"[a-zA-Z0-9]", alltext)
 # \W non-alphanumeric, one non-word char
 re.findall(r"\W", alltext) # same as re.findall(r"[^a-zA-Z0-9]", alltext)
