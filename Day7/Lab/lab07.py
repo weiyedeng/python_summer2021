@@ -2,6 +2,7 @@ import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, and_, or_
 from sqlalchemy.orm import relationship, backref, sessionmaker
+from sqlalchemy import func
 
 engine = sqlalchemy.create_engine('sqlite:///geog.db', echo=False)
 
@@ -113,19 +114,35 @@ for town in session.query(Town).order_by(Town.id):
 
 
 
+
 # TODO: 
 # 1. Display, by department, the cities having
 #    more than 50,000 inhabitants.
+for town in session.query(Town).join(Department).filter(Town.population > 50000):
+    print(town.name, town.population)
 
 
 # 2. Display the towns with the minimum population in each region
 # print town name, population, region name
 # Hint: subqueries
+sub = session.query(func.min(Town.population).label('min')).join(Department).join(Region).group_by(Region.name).subquery()
+for town in session.query(Town).join(Department).filter(sub.c.min == Town.population):
+    print(town.name, town.population, town.department.region.name)
+
+
+# =============================================================================
+# sub = session.query(func.max(Player.number).label('max')).join(Team).group_by(Team.name).subquery()
+# for player in session.query(Player).join(Team).filter(sub.c.max == Player.number):
+#   print(player.name, player.number, player.team.name)
+# =============================================================================
 
 
 # 3. Display the total number of inhabitants
 #    per department using only a query (no lists!)
 
+
+for d in session.query(Department.deptname,func.sum(Town.population).label('sum')).join(Department).group_by(Department).order_by(Department.deptname):
+    print(d.deptname)
   
 
 
