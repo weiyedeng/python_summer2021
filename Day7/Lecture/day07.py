@@ -8,7 +8,7 @@
 # First Instructor: Matt Dickenson
 
 import os
-os.chdir('/Users/bennoble/Dropbox/Ben/GitHub/python_summer2021/Day7/Lecture/')
+os.chdir('E:/mine/academics_career/Website/python_summer2021/Day7/Lecture')
 
 # What is a Database?
 #   - A database is a collection of information that is organized so 
