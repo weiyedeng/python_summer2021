@@ -231,8 +231,8 @@ limit["resources"] ## another dictionary
 limit["resources"].keys()
 limit["resources"]["tweets"] ## another dictionary!!
 
- for i in limit["resources"]["tweets"].keys():
-	print(limit["resources"]["tweets"][i]) ## another dictionary!
+for i in limit["resources"]["tweets"].keys():
+     print(limit["resources"]["tweets"][i]) ## another dictionary!
 
 # Create user objects
 joe = api.get_user('@JoeBiden')
