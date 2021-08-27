@@ -167,7 +167,7 @@ def bubble_sort(numbers):
             if answer[j] > answer[j+1]:
                 # Swap
                 answer[j], answer[j+1] = answer[j+1], answer[j]
-        # print(answer)
+        print(answer)
     return answer
 
 bubble_sort(my_numbers)
