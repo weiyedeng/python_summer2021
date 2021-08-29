@@ -38,18 +38,30 @@ print(sum([len(ring[node]) for node in ring.keys()])/2)
 ## Grid Network
 ## TODO: create a square graph with 9 nodes using the makeLink function
 ## Example: https://www.mathworks.com/matlabcentral/answers/213955-how-to-determine-the-neighbours-of-each-node-in-a-square-graph
+import math
 
+n = 9
+graph = {}
+
+for i in range(1,n):
+    width = math.sqrt(n)
+    if i % width == 0:
+        pass
+    else:
+        makeLink(graph, i, i+1)
+    
+    if i + width > n:
+        continue
+    else:
+        makeLink(graph, i, width+i)
+
+graph
 ## TODO: define a function countEdges
 
-# You may want to use the module math
-import math 
-
-
-
-
-
-
-
+def countEdges(graph):
+    return sum([len(graph[node]) for node in graph.keys()])/2  
+    
+countEdges(graph)
 
 
 ##  Social Network
@@ -80,7 +92,6 @@ movies = makeLink(movies, kb, jr) # Flatliners
 movies = makeLink(movies, kb, ms) # The River Wild
 movies = makeLink(movies, ah, ms) # Devil Wears Prada
 movies = makeLink(movies, ah, jr) # Valentine's Day
-
 
 
 def findPath(graph, start, end, path=[]):
@@ -123,10 +134,36 @@ movies[kb].keys() ## found meryl streep!
 ## for path in allPaths:
 ##   print path
 
+def findAllPaths(graph, start, end, path=[]):
+    ## create list
+    all_paths = []
+    path = path + [start]
+    ## base case, reached end
+    if start == end:
+        return [path]
+    if start not in graph:
+        return None
+    ## for each connection to starting node
+    
+    for node in graph[start]:
+        ## check if it is already in path
+        if node not in path:
+            all_paths.extend(findAllPaths(graph, node, end, path))
+    ## if not, call recursively, thus adding node to path
+    ## carry around path object with you
+    return all_paths
+findAllPaths(movies, jr, ms)
 
+def  findShortestPaths(graph,start,end,path=[]):
+    min_l = len(min(findAllPaths(graph, start, end), key = len))
+    paths = []
+    allPaths = findAllPaths(graph,start,end)
+    for i in range(len(allPaths)):
+        if len(allPaths[i]) == min_l:
+            paths.append(allPaths[i])
+    return paths
 
-
-
+findShortestPaths(movies, jr, ms)
 
 ## TODO: implement findShortestPath() to print shorest path between actors
 ## print findShortestPath(movies, ms, ss)
