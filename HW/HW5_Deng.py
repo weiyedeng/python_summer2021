@@ -1,9 +1,4 @@
 #%%
-import os
-from datetime import datetime
-import time
-import random
-
 # Create the node class
 class Node:
     def __init__(self, _value=None, _next=None):
@@ -65,13 +60,15 @@ class LinkedList:
         ## I will not know whether there is any element that can be matched.
             
     def reverse(self):
-        return self.linkedlist.reverse()
+        self.linkedlist.reverse()
+        return self.linkedlist
         ## Complexity: O(1), Straightforward
     
     def __str__(self):
         return "The linkedlist is %s" % " -> ".join([str(elem) for elem in self.linkedlist])
         ## Complexity: O(1), Straightforward
     
+
 
 
 #%%
@@ -82,7 +79,7 @@ node_4 = Node(_value=4)
 node_5 = Node(_value=5)
 node_6 = Node(_value=6)
 node_6_1 = Node(_value=6)
-node_
+node_7 = Node(_value=7)
 
 # Test
 first_list = LinkedList(node_1)
@@ -91,9 +88,10 @@ first_list.addNode(node_3)
 first_list.addNodeAfter(node_4,node_1)
 first_list.addNodeBefore(node_5,node_2)
 first_list.addNodeBefore(node_6,node_4)
+first_list.addNodeBefore(node_6_1,node_5)
 
 first_list.length()
 first_list.reverse()
 first_list.removeNode(node_2)
-first_list.removeNodesbyValue(7)
+first_list.removeNodesbyValue(6)
 print(first_list)
