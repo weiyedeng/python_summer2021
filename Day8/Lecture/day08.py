@@ -282,7 +282,7 @@ n = list(range(1, 11))
 O1 = [1 for i in n]
 OLogN = [math.log(i) for i in n]
 OnLogN = [i * math.log(i) for i in n]
-On2 = [i * 2 for i in n]
+On2 = [i ** 2 for i in n]
 O2n = [2 ** i for i in n]
 OnF = [math.factorial(i) for i in n]
 
