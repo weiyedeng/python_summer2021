@@ -6,8 +6,8 @@ from weibo_scraper import  get_weibo_tweets_by_name
 from weibo_scraper import  get_formatted_weibo_tweets_by_name
 import csv
 
-result_iterator = get_formatted_weibo_tweets_by_name(name='嘻红豆', pages=1)
-people_tweets = get_weibo_tweets_by_name(name='人民日报', pages=2)
+people = get_weibo_profile(name='人民日报')
+people_tweets = get_weibo_tweets_by_name(name='人民日报', pages=3)
 
 for tweet in people_tweets:
     print(tweet)
@@ -16,16 +16,35 @@ tweet['mblog']['page_info']
 tweet['mblog']['reposts_count']
 tweet['mblog']['attitudes_count']
 tweet['mblog']['text']
-sample = 'I am from 美国。We should be friends. 朋友。'
-re.findall(r'[\u4e00-\u9fff|\d]+',tweet['mblog']['text'])
+re.sub(r'<[^>]*>|[【】]', '', tweet['mblog']['text'])
 
 # Get hashtags
 re.findall(r'#.*?#',tweet['mblog']['text'])
 
+#%%
 with open ('people_daily.csv', 'w', newline="", encoding="utf-8") as f:
-    w = csv.DictWriter(f, fieldnames = ("ID", "Created_at", "Title", "Text", "Hashtags", "Reposts_Count", "Comments_Count", "Attitudes_Count", "type", "Video_Play_Count")) # define colnames
-    
-    
+    w = csv.DictWriter(f, fieldnames = ("ID", "Created_at", "Title", "Text", "Hashtags", "Reposts_Count", "Comments_Count", "Attitudes_Count")) # define colnames
+    w.writeheader()
+    records = {} # record the information
+    j = 0 # counter
+    for i in range(1,3):
+        people_tweets = get_weibo_tweets_by_name(name='人民日报', pages=i) # get the tweet generator
+        for tweet in people_tweets:
+            records['ID'] = tweet['mblog']['id']
+            records['Created_at'] = tweet['mblog']['created_at']
+            try: 
+                records['Title'] = tweet['mblog']['page_info']['page_title']
+            except:
+                records['Title'] = ""
+            records['Text'] = re.sub(r'<[^>]*>|[【】]', '', tweet['mblog']['text'])
+            records['Hashtags'] = re.findall(r'#.*?#',tweet['mblog']['text'])
+            records['Reposts_Count'] = tweet['mblog']['reposts_count']
+            records['Comments_Count'] = tweet['mblog']['comments_count']
+            records['Attitudes_Count'] = tweet['mblog']['attitudes_count']
+            w.writerow(records)
+        j += 1
+        print(j)
+            
 # =============================================================================
 #     addresses = {} # create an empty dict
 #     j = 0
